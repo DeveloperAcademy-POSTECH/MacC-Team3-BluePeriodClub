@@ -11,7 +11,6 @@ struct PrologueLessonView: View {
     
     @Binding var isPresented: Bool
     @EnvironmentObject var educationManager: EducationManager
-    @Environment(\.dynamicTypeSize) private var dynamicTypeSize : DynamicTypeSize
     
     var prologuePage : HangulPrologue {
         educationManager.prologue[educationManager.index]
@@ -21,20 +20,18 @@ struct PrologueLessonView: View {
         NavigationStack{
             ZStack{
                     VStack(spacing: 0){
-                        VStack(spacing: 20) {
+                        VStack(spacing: 20){
                             Text(prologuePage.title)
                                 .bold()
                                 .font(.title)
                                 .foregroundStyle(Color(uiColor: prologuePage.color[0]))
                                 .multilineTextAlignment(.center)
-
                             Text(.init(prologuePage.text))
                                 .font(.body)
                                 .multilineTextAlignment(.center)
-                            
                             Spacer()
                         }
-                        .frame(maxHeight : dynamicTypeSize.prologueTextHeight)
+                        .frame(height: 200)
                         RoundedRectangle(cornerRadius: 16)
                             .frame(width: 358, height: 358)
                             .foregroundColor(Color(uiColor: UIColor(hex: "F8F8F8")))
@@ -53,21 +50,21 @@ struct PrologueLessonView: View {
                         Spacer()
                     }
                     .padding(.horizontal, 16)
-                VStack {
-                    Spacer()
-                    
-                    HStack {
-                        Button(action: {}, label: {
-                            Text("Continue")
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 8)
-                        })
-                        .buttonStyle(.borderedProminent)
-                        .hidden()
-                    }
-                    .padding(24)
-                    .background(.ultraThinMaterial)
-                }
+//                VStack {
+//                    Spacer()
+//                    
+//                    HStack {
+//                        Button(action: {}, label: {
+//                            Text("Continue")
+//                                .frame(maxWidth: .infinity)
+//                                .padding(.vertical, 8)
+//                        })
+//                        .buttonStyle(.borderedProminent)
+//                        .hidden()
+//                    }
+//                    .padding(24)
+//                    .background(.ultraThinMaterial)
+//                }
                 
                 VStack {
                     Spacer()
@@ -123,40 +120,6 @@ struct PageView : View {
         .frame(width: 358, height: 358)
         .tabViewStyle(PageTabViewStyle())
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .always))
-    }
-}
-
-extension DynamicTypeSize {
-    var prologueTextHeight : CGFloat {
-        switch self {
-            
-        case .xSmall:
-            200
-        case .small:
-            200
-        case .medium:
-            200
-        case .large:
-            200
-        case .xLarge:
-            200
-        case .xxLarge:
-            220
-        case .xxxLarge:
-            250
-        case .accessibility1:
-            300
-        case .accessibility2:
-            300
-        case .accessibility3:
-            300
-        case .accessibility4:
-            300
-        case .accessibility5:
-            300
-        @unknown default:
-            300
-        }
     }
 }
 

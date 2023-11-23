@@ -22,7 +22,6 @@ struct VowelDrawingView: View {
                 
                 //            Divider()
                 Canvas(writingCount: $writingCount)
-                    .environmentObject(educationManager)
             }
             .padding(.horizontal, 16)
             .navigationTitle(educationManager.nowStudying)
@@ -65,7 +64,7 @@ struct VowelDrawingView: View {
                     .buttonStyle(.borderedProminent)
                     .padding(.horizontal, 24)
 //                    .padding(.bottom, 24)
-                    .disabled(writingCount < 3)
+//                    .disabled(writingCount < 3)
                 }
             }
         }

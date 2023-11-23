@@ -13,13 +13,11 @@ import PencilKit
 struct Canvas: UIViewControllerRepresentable {
     
     @Binding var writingCount : Int
-    @EnvironmentObject var educationManager: EducationManager
     
     typealias UIViewControllerType = UIViewController
     
     func makeUIViewController(context: Context) -> UIViewController {
-        let fallingViewController = FallingViewController(writingCount: $writingCount, educationManager: educationManager)
-
+        let fallingViewController = FallingViewController(writingCount: $writingCount)
         return fallingViewController
     }
     
@@ -30,8 +28,7 @@ struct Canvas: UIViewControllerRepresentable {
 class FallingViewController : UIViewController, UITextFieldDelegate, PKCanvasViewDelegate, UICollisionBehaviorDelegate {
     
     @Binding var writingCount: Int
-    var educationManager: EducationManager
-    
+
     var gravity : UIGravityBehavior!
     var collision: UICollisionBehavior!
     var animator: UIDynamicAnimator!
@@ -47,26 +44,24 @@ class FallingViewController : UIViewController, UITextFieldDelegate, PKCanvasVie
     var height: CGFloat = 0
     
     var guideImageView : UIImageView!
-    var guideImage : UIImage
+    let guideImage = UIImage(named: "ㅏdrawing")!
     var writedImageView : UIImageView!
     
     let PKInkTools : [PKInkingTool.InkType] = [.pen, .pencil, .crayon, .marker, .monoline, .watercolor, .fountainPen]
     let Colors : [UIColor] = [.systemRed, .systemOrange, .systemYellow, .systemGreen, .systemMint, .systemCyan, .systemBlue, .systemIndigo, .systemPurple, .systemPink, .systemBrown, .systemGray, .systemTeal, .magenta, .black]
     
     
-    init(writingCount: Binding<Int>, educationManager: EducationManager) {
-        self._writingCount = writingCount
-        self.educationManager = educationManager
-        self.guideImage = UIImage(named: "\(educationManager.content[educationManager.index].name)drawing") ?? UIImage(named: "ㅏdrawing")!
-        super.init(nibName: nil, bundle: nil)
-    }
+    init(writingCount: Binding<Int>) {
+            self._writingCount = writingCount
+            super.init(nibName: nil, bundle: nil)
+        }
     required init?(coder: NSCoder) {
             fatalError("init(coder:) has not been implemented")
         }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
+        
         width = guideImage.size.width / 6
         height = guideImage.size.height / 6
         guideImageView = UIImageView(frame: CGRect(x: posX, y: posY, width: width, height: height))
@@ -95,7 +90,7 @@ class FallingViewController : UIViewController, UITextFieldDelegate, PKCanvasVie
         let stroke = canvasView.drawing.strokes.count
 //        print(stroke)
         
-        if stroke == educationManager.content[educationManager.index].strokeCount  {
+        if stroke == 2 {
             writingCount += 1
             TTSManager.shared.play("아")
             
@@ -174,5 +169,4 @@ class FallingViewController : UIViewController, UITextFieldDelegate, PKCanvasVie
 
 #Preview(body: {
     Canvas(writingCount: .constant(0))
-        .environmentObject(EducationManager())
 })

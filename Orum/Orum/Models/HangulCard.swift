@@ -17,7 +17,6 @@ struct HangulCard: Hashable {
     var soundExample2 : String = ""
     var lottieName : String = ""
     var explanation : String = ""
-    var strokeCount : Int = 1
     var chapterType : ChapterType = .system
     var hangulType : HangulType = .single
     
@@ -42,7 +41,6 @@ struct HangulCard: Hashable {
             self.sound = Constants.Hangul.vowelSound[name] ?? ""
             self.lottieName = ""
             self.chapterType = .vowel
-            self.strokeCount = Constants.Hangul.vowelStrokeCount[name] ?? 1
             if Constants.Hangul.vowelSimilarSound[name] == "" {
                 hangulType = .double
                 self.explanation = Constants.Hangul.vowelCombination[name] ?? ""
@@ -53,7 +51,7 @@ struct HangulCard: Hashable {
         }
         
         else { // 받침
-            self.sound = Constants.Hangul.batchimSound[name] ?? ""
+            self.sound = Constants.Hangul.consonantSound[name] ?? ""
             self.chapterType = .batchim
         }
     }
