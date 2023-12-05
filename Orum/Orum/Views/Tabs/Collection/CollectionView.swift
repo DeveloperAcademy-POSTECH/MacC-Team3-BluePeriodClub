@@ -57,6 +57,7 @@ struct CollectionView: View {
                                         Divider()
                                     }
                                 }
+                                .contentShape(Rectangle())
                             })
                             .buttonStyle(.plain)
                             
@@ -93,6 +94,7 @@ struct CollectionView: View {
                                         Divider()
                                     }
                                 }
+                                .contentShape(Rectangle())
                             }).buttonStyle(.plain)
                                 .padding(.top, 8)
 
@@ -152,6 +154,7 @@ struct CollectionView: View {
                                     }
 
                                 }
+                                .contentShape(Rectangle())
                             })
                             .buttonStyle(.plain)
                             .padding(.top, 8)
