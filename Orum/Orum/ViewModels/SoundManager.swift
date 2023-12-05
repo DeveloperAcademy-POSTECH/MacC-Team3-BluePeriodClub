@@ -7,11 +7,26 @@
 
 import SwiftUI
 import AVKit
+import AVFoundation
 
 class SoundManager: NSObject, AVAudioPlayerDelegate {
     static let instance = SoundManager()
     var player: AVAudioPlayer?
     var completion: (() -> Void)?
+    
+    override private init() {
+            super.init()
+            setupAudioSession()
+        }
+    
+    private func setupAudioSession() {
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [.mixWithOthers])
+            try AVAudioSession.sharedInstance().setActive(true)
+        } catch {
+            print("Failed to set up AVAudioSession: \(error.localizedDescription)")
+        }
+    }
 
     func playSound(sound: String, completion: (() -> Void)?) {
         guard let url = Bundle.main.url(forResource: sound, withExtension: ".m4a") else { return }

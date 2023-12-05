@@ -160,9 +160,9 @@ class FallingViewController : UIViewController, UITextFieldDelegate, PKCanvasVie
             imageView.removeFromSuperview()
         }
         canvasItems.removeAll()
-        animator.removeBehavior(gravity)
-        animator.removeBehavior(collision)
-        HapticManager.shared.hapticNotification(type: .warning)
+        animator.removeAllBehaviors()
+        
+        HapticManager.shared.hapticNotification(type: .success)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -170,8 +170,8 @@ class FallingViewController : UIViewController, UITextFieldDelegate, PKCanvasVie
             imageView.removeFromSuperview()
         }
         canvasItems.removeAll()
-        animator.removeBehavior(gravity)
-        animator.removeBehavior(collision)
+        animator.removeAllBehaviors()
+
     }
     
     
